@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Magical Memory Lane</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --accent-color: #feca57;
+            --text-color: #333;
+            --background-color: #f7f1e3;
+        }
+
+        .drei {
+            position: fixed;
+            bottom: 10px;     
+            right: 50px;      
+            opacity: 0.5;     
+            z-index: 1000;
+            border: none;     
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: var(--background-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .magical-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .magical-background::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--secondary-color) 0%, var(--primary-color) 100%);
+            animation: rotateBackground 30s linear infinite;
+        }
+
+        @keyframes rotateBackground {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 4rem;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+            animation: pulseTitle 2s infinite;
+        }
+
+        @keyframes pulseTitle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .memory-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+        }
+
+        .memory-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            width: 350px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .memory-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .memory-card:hover .memory-icon {
+            transform: scale(1.2);
+        }
+
+        .memory-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .memory-text {
+            font-size: 1rem;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .memory-date {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-top: 1rem;
+        }
+
+        .memory-photo {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .memory-card:hover .memory-photo {
+            transform: scale(1.1);
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s, transform 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .memory-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .memory-card:hover .memory-details {
+            opacity: 1;
+        }
+
+        .memory-quote {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .memory-feeling {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .memory-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .memory-card {
+                width: 90%;
+                max-width: 300px;
+            }
+        }
+
+        .accessibility-controls {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .accessibility-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background-color 0.3s;
+        }
+
+        .accessibility-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .high-contrast {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --accent-color: #ffff00;
+            --text-color: #000000;
+            --background-color: #ffffff;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .magical-background::before,
+            .floating-heart,
+            h1,
+            .memory-card:hover,
+            .back-button:hover {
+                animation: none;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="magical-background"></div>
+    <div class="floating-hearts" aria-hidden="true"></div>
+    <div class="container">
+        <h1>Our Magical Memory Lane</h1>
+        <div class="memory-container" id="memoryContainer"></div>
+        <a href="index.html" class="back-button">Back to Our Love Story</a>
+    </div>
+    <div class="accessibility-controls">
+        <button class="accessibility-button" id="toggleContrast">Toggle High Contrast</button>
+        <button class="accessibility-button" id="toggleMotion">Toggle Reduced Motion</button>
+    </div>
+    <img class="drei" width="216" height="108">
+
+    <script>
+        const memories = [
+            {
+                icon: '🌅',
+                title: 'First Sunrise Together',
+                text: 'Watching the sun paint the sky in hues of love',
+                date: 'June 15, 2022',
+                photo: 'images/image.jpg',
+                quote: 'In that moment, I knew our love would outshine even the brightest dawn.',
+                feeling: 'Awestruck and deeply in love'
+            },
+            {
+                icon: '🍝',
+                title: 'Culinary Catastrophe',
+                text: 'Our attempt at making pasta turned into a comedy of errors',
+                date: 'August 3, 2022',
+                photo: 'images/image2.jpg',
+                quote: 'Even in chaos, your laughter is my favorite melody.',
+                feeling: 'Amused and grateful for the simple joys'
+            },
+            {
+                icon: '🎢',
+                title: 'Thrilling Park Adventure',
+                text: 'Conquering our fears and screaming with joy',
+                date: 'September 18, 2022',
+                photo: 'images/image3.jpg',
+                quote: 'With you by my side, every day feels like an exhilarating ride.',
+                feeling: 'Excited and alive'
+            },
+            {
+                icon: '🌠',
+                title: 'Starry Night Serenade',
+                text: 'Counting stars and making wishes on the rooftop',
+                date: 'November 5, 2022',
+                photo: 'images/image4.jpg',
+                quote: 'In the vastness of the universe, my heart found its home in your eyes.',
+                feeling: 'Mesmerized and deeply connected'
+            },
+            {
+                icon: '🎭',
+                title: 'Theatrical Magic',
+                text: 'Our first time experiencing the enchantment of live theater',
+                date: 'January 20, 2023',
+                photo: 'images/image5.jpg',
+                quote: 'Life with you is the most beautiful performance, and I never want it to end.',
+                feeling: 'Inspired and culturally enriched'
+            },
+            {
+                icon: '🏞️',
+                title: 'Serendipitous Waterfall',
+                text: 'Getting lost on a hike led us to a hidden paradise',
+                date: 'April 8, 2023',
+                photo: 'images/image6.jpg',
+                quote: 'Sometimes, the most beautiful destinations are found when we lose our way together.',
+                feeling: 'Adventurous and in awe of nature'
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const memoryContainer = document.getElementById('memoryContainer');
+            const body = document.body;
+            const toggleContrastButton = document.getElementById('toggleContrast');
+            const toggleMotionButton = document.getElementById('toggleMotion');
+
+            // Create memory cards
+            memories.forEach(memory => {
+                const card = document.createElement('div');
+                card.classList.add('memory-card');
+                card.innerHTML = `
+                    <img src="${memory.photo}" alt="${memory.title}" class="memory-photo">
+                    <div class="memory-icon">${memory.icon}</div>
+                    <div class="memory-title">${memory.title}</div>
+                    <div class="memory-text">${memory.text}</div>
+                    <div class="memory-date">${memory.date}</div>
+                    <div class="memory-details">
+                        <div class="memory-quote">"${memory.quote}"</div>
+                        <div class="memory-feeling">Feeling: ${memory.feeling}</div>
+                    </div>
+                `;
+                memoryContainer.appendChild(card);
+            });
+
+            // Create floating hearts
+            const floatingHearts = document.querySelector('.floating-hearts');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = `${Math.random() * 100}%`;
+                heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                floatingHearts.appendChild(heart);
+            }
+
+            // Accessibility controls
+            toggleContrastButton.addEventListener('click', () => {
+                body.classList.toggle('high-contrast');
+            });
+
+            toggleMotionButton.addEventListener('click', () => {
+                body.classList.toggle('reduce-motion');
+            });
+
+            // Keyboard navigation
+            const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+            const firstFocusableElement = document.querySelector(focusableElements);
+            const focusableContent = document.querySelectorAll(focusableElements);
+            const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+            document.addEventListener('keydown', function(e) {
+                let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
+                if (!isTabPressed) {
+                    return;
+                }
+
+                if (e.shiftKey) {
+                    if (document.activeElement === firstFocusableElement) {
+                        lastFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === lastFocusableElement) {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

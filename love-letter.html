@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Love Letter for You</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+    :root {
+        --primary-color: #ff6b6b;
+        --secondary-color: #4ecdc4;
+        --accent-color: #feca57;
+        --text-color: #333;
+        --background-color: #f7f1e3;
+        --envelope-color: #e74c3c;
+        --envelope-flap: #c0392b;
+        --envelope-shadow: rgba(0, 0, 0, 0.2);
+    }
+
+    .drei {
+            position: fixed;
+            bottom: 10px;     
+            right: 50px;      
+            opacity: 0.5;     
+            z-index: 1000;
+            border: none;     
+        }
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Montserrat', sans-serif;
+        background-color: var(--background-color);
+        overflow-x: hidden;
+    }
+
+    .container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .magical-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+        background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+    }
+
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .magical-background::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffecd2);
+        animation: gradientAnimation 15s ease infinite;
+        background-size: 400% 400%;
+        transform: rotate(30deg);
+    }
+
+    h1 {
+        font-family: 'Pacifico', cursive;
+        font-size: 4rem;
+        color: var(--primary-color);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        margin-bottom: 2rem;
+        animation: pulseTitle 2s infinite;
+    }
+
+    @keyframes pulseTitle {
+        0%, 100% { transform: scale(1); text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        50% { transform: scale(1.05); text-shadow: 4px 4px 8px rgba(0,0,0,0.4); }
+    }
+
+    .envelope {
+        width: 300px;
+        height: 200px;
+        background-color: var(--envelope-color);
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin-bottom: 2rem;
+    }
+
+    .envelope:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .envelope::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+        border-top: 100px solid var(--envelope-flap);
+        transition: transform 0.3s;
+    }
+
+    .envelope:hover::before {
+        transform: rotateX(180deg);
+        transform-origin: top;
+    }
+
+    .envelope::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+        border-bottom: 100px solid var(--envelope-shadow);
+        z-index: -1;
+    }
+
+    .heart {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background-color: #fff;
+        clip-path: path('M25,0 A12.5,12.5,0,0,1,50,12.5 C50,25,37.5,37.5,25,50 C12.5,37.5,0,25,0,12.5 A12.5,12.5,0,0,1,25,0');
+        animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% { transform: translate(-50%, -50%) scale(1); }
+        50% { transform: translate(-50%, -50%) scale(1.1); }
+    }
+
+    .glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0;
+        height: 0;
+        background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+        opacity: 0;
+        transition: all 0.5s;
+        z-index: -1;
+    }
+
+    .envelope:hover .glow {
+        width: 400px;
+        height: 400px;
+        opacity: 1;
+    }
+
+    .letter-content {
+        display: none;
+        background-color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        max-width: 600px;
+        width: 100%;
+        text-align: left;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .letter-content::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        left: -50px;
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(45deg, var(--accent-color), transparent);
+        transform: rotate(45deg);
+    }
+
+    .letter-content::after {
+        content: '';
+        position: absolute;
+        bottom: -50px;
+        right: -50px;
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(45deg, transparent, var(--secondary-color));
+        transform: rotate(45deg);
+    }
+
+    .signature {
+        font-family: 'Pacifico', cursive;
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-top: 2rem;
+        text-align: right;
+    }
+
+    .floating-hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .floating-heart {
+        position: absolute;
+        font-size: 1.5rem;
+        animation: floatHeart 10s infinite linear;
+        opacity: 0.7;
+    }
+
+    @keyframes floatHeart {
+        0% { transform: translateY(100vh) scale(0); }
+        100% { transform: translateY(-100px) scale(1); }
+    }
+
+    .back-button {
+        background-color: var(--secondary-color);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        margin-top: 2rem;
+    }
+
+    .back-button:hover {
+        background-color: var(--primary-color);
+        transform: scale(1.05);
+    }
+
+    .accessibility-controls {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        gap: 0.5rem;
+        z-index: 1;
+    }
+
+    .accessibility-button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: background-color 0.3s;
+    }
+
+    .accessibility-button:hover {
+        background-color: var(--secondary-color);
+    }
+
+    .high-contrast {
+        --primary-color: #000000;
+        --secondary-color: #ffffff;
+        --accent-color: #ffff00;
+        --text-color: #000000;
+        --background-color: #ffffff;
+        --envelope-color: #333333;
+        --envelope-flap: #666666;
+    }
+
+    .reduce-motion * {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .magical-background::before,
+        .floating-heart,
+        .heart,
+        h1,
+        .envelope:hover {
+            animation: none;
+            transition: none;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="magical-background"></div>
+<div class="floating-hearts" aria-hidden="true"></div>
+<div class="container">
+    <h1>A Love Letter for You</h1>
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Click to open the love letter">
+        <div class="heart"></div>
+        <div class="glow"></div>
+    </div>
+    <div class="letter-content" id="letterContent">
+        <p>My Dearest,</p>
+        <p>As I sit here, pen in hand (well, fingers on keyboard), I'm overwhelmed by the love I feel for you. Each day with you is a gift, and on your birthday, I want to remind you just how special you are to me.</p>
+        <p>Your smile lights up my world brighter than the sun. Your laughter is the sweetest melody I've ever heard. Your kindness inspires me to be a better person every single day.</p>
+        <p>Through the ups and downs, you've been my rock, my comfort, and my greatest adventure. I cherish every moment we've shared and look forward to creating countless more memories together.</p>
+        <p>Today, as you celebrate another year of life, I celebrate the incredible person you are. Your strength, your passion, your quirks - every part of you is perfect to me.</p>
+        <p>Happy birthday, my love. May this year bring you all the joy, success, and happiness you deserve. I love you more than words can express, today and always.</p>
+        <div class="signature">Forever Yours</div>
+    </div>
+    <a href="index.html" class="back-button">Back to Birthday Surprise</a>
+</div>
+<div class="accessibility-controls">
+    <button class="accessibility-button" id="toggleContrast">Toggle High Contrast</button>
+    <button class="accessibility-button" id="toggleMotion">Toggle Reduced Motion</button>
+</div>
+<img class="drei" width="216" height="108">
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const envelope = document.getElementById('envelope');
+    const letterContent = document.getElementById('letterContent');
+    const body = document.body;
+    const toggleContrastButton = document.getElementById('toggleContrast');
+    const toggleMotionButton = document.getElementById('toggleMotion');
+
+    envelope.addEventListener('click', function() {
+        envelope.style.display = 'none';
+        letterContent.style.display = 'block';
+    });
+
+    envelope.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            envelope.click();
+        }
+    });
+
+    // Create floating hearts
+    const floatingHearts = document.querySelector('.floating-hearts');
+    const heartEmojis = ['❤️', '💖', '💗', '💓', '💞', '💕'];
+    for (let i = 0; i < 30; i++) {
+        const heart = document.createElement('span');
+        heart.classList.add('floating-heart');
+        heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.animationDuration = `${Math.random() * 5 + 5}s`;
+        heart.style.animationDelay = `${Math.random() * 5}s`;
+        floatingHearts.appendChild(heart);
+    }
+
+    // Accessibility controls
+    toggleContrastButton.addEventListener('click', () => {
+        body.classList.toggle('high-contrast');
+    });
+
+    toggleMotionButton.addEventListener('click', () => {
+        body.classList.toggle('reduce-motion');
+    });
+
+    // Keyboard navigation
+    const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const firstFocusableElement = document.querySelector(focusableElements);
+    const focusableContent = document.querySelectorAll(focusableElements);
+    const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+    document.addEventListener('keydown', function(e) {
+        let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
+        if (!isTabPressed) {
+            return;
+        }
+
+        if (e.shiftKey) {
+            if (document.activeElement === firstFocusableElement) {
+                lastFocusableElement.focus();
+                e.preventDefault();
+            }
+        } else {
+            if (document.activeElement === lastFocusableElement) {
+                firstFocusableElement.focus();
+                e.preventDefault();
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
