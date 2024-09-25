@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Romantic Birthday Adventure</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>The Enchanting Love Adventure!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <style>
         * {
-            font-family: Poppins, sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            box-sizing: border-box;
         }
 
         :root {
-            --primary-color: #ff6b6b;
-            --secondary-color: #4ecdc4;
-            --accent-color: #feca57;
+            --primary-color: #ff3366;
+            --secondary-color: #ff6b8b;
+            --accent-color: #ffd700;
             --text-color: #333;
-            --background-color: #f7f1e3;
+            --background-color: #fff0f5;
         }
 
         .drei {
@@ -47,7 +48,7 @@
             z-index: 1;
         }
 
-        .romantic-background {
+        .magical-background {
             position: fixed;
             top: 0;
             left: 0;
@@ -55,38 +56,25 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
-            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            background: linear-gradient(45deg, #ff3366, #ff6b8b, #ffd700);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
-        .floating-hearts {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .floating-heart {
-            position: absolute;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            opacity: 0.7;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         h1 {
             font-family: 'Pacifico', cursive;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--primary-color);
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             margin-bottom: 2rem;
             animation: pulseTitle 2s infinite;
+            text-align: center;
         }
 
         @keyframes pulseTitle {
@@ -94,8 +82,8 @@
             50% { transform: scale(1.05); }
         }
 
-        #story {
-            font-size: 1.2rem;
+        .message {
+            font-size: 1.5rem;
             max-width: 800px;
             text-align: center;
             color: var(--text-color);
@@ -104,148 +92,117 @@
             border-radius: 1rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 0;
+            transform: translateY(20px);
             transition: opacity 0.5s, transform 0.5s;
         }
 
-        .show-story {
+        .show-message {
             opacity: 1;
             transform: translateY(0);
         }
 
-        #choices {
+        .choice-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem;
+            gap: 2rem;
             margin-bottom: 2rem;
         }
 
-        .choice-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .choice-btn:hover {
-            background-color: var(--primary-color);
-            transform: scale(1.05);
-        }
-
-        #restart {
-            background-color: var(--accent-color);
-            color: var(--text-color);
-            border: none;
-            padding: 1rem 2rem;
+        .choice-button {
             font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            margin-top: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        #restart:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .back-button {
-            display: inline-block;
-            margin-top: 2rem;
             padding: 1rem 2rem;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
+            border: none;
             border-radius: 50px;
-            transition: background-color 0.3s, transform 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
+            background-color: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .back-button:hover {
-            background-color: var(--secondary-color);
+        .choice-button:hover {
             transform: scale(1.05);
+            background-color: var(--primary-color);
         }
 
-        #progress-container {
+        .choice-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--accent-color);
+        }
+
+        .result {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .show-result {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .love-meter {
             width: 100%;
-            max-width: 600px;
-            height: 20px;
-            background-color: #ddd;
-            border-radius: 10px;
-            margin: 1rem auto;
+            max-width: 300px;
+            height: 30px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
             overflow: hidden;
+            margin: 1rem auto;
             position: relative;
         }
 
-        #progress-bar {
-            width: 0%;
+        .love-meter-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
-            transition: width 0.5s;
+            background: linear-gradient(to right, #ff3366, #ff6b8b);
+            width: 0;
+            transition: width 1s ease-in-out;
         }
 
-        #progress-text {
+        .love-meter-text {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            color: #fff;
             font-weight: bold;
-            color: var(--text-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
-        #notification {
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .emoji {
+            font-size: 2rem;
+            margin: 0 0.5rem;
+        }
+
+        #cupid {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: opacity 0.3s, transform 0.3s;
+            bottom: 20px;
+            right: -100px;
+            font-size: 4rem;
+            transition: right 2s ease-in-out;
         }
 
-        #notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        #results {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        #results h2 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        #results p {
-            margin-bottom: 0.5rem;
+        .fly-in {
+            right: 20px !important;
         }
 
         .accessibility-controls {
@@ -254,7 +211,7 @@
             right: 1rem;
             display: flex;
             gap: 0.5rem;
-            z-index: 9999;
+            z-index: 10;
         }
 
         .accessibility-button {
@@ -281,923 +238,547 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .floating-heart,
+            .magical-background,
             h1,
-            .choice-btn:hover,
-            #restart:hover,
-            .back-button:hover {
+            .choice-button:hover,
+            #cupid {
                 animation: none;
-                transform: none;
+                transition: none;
             }
         }
 
-        .magical-sparkle {
-            position: absolute;
+        .floating-heart {
+            position: fixed;
+            font-size: 2rem;
             pointer-events: none;
-            width: 10px;
-            height: 10px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
+            user-select: none;
+            animation: float-up 4s ease-out;
             opacity: 0;
         }
 
-        @keyframes sparkle {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(1); opacity: 0; }
+        @keyframes float-up {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+
+        #back-to-index {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 100;
+        }
+
+        #back-to-index:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        #heart-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .prize-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .prize-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            animation: prize-appear 1s ease-out;
+            position: relative;
+        }
+
+        @keyframes prize-appear {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .prize-item {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #fff0f5;
+            border-radius: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .prize-item:hover {
+            transform: scale(1.05);
+        }
+
+        #claim-prize {
+            font-size: 1.5rem;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: pulse 1.5s infinite;
+        }
+
+        #claim-prize:hover {
+            transform: scale(1.1);
+            background-color: var(--secondary-color);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .close-prize {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .download-prize {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .download-prize:hover {
+            background-color: #ffc700;
+        }
+
+        .romantic-element {
+            position: absolute;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        #rose {
+            bottom: 20px;
+            left: 50px;
+            font-size: 3rem;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        #balloon {
+            top: 50px;
+            right: 100px;
+            font-size: 4rem;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
     </style>
 </head>
 <body>
-    <div class="romantic-background"></div>
-    <div class="floating-hearts" aria-hidden="true"></div>
+    <div class="magical-background"></div>
+    <canvas id="heart-particles"></canvas>
     <div class="container">
-        <h1>Your Romantic Birthday Adventure</h1>
-        <div id="progress-container">
-            <div id="progress-bar"></div>
-            <div id="progress-text">0%</div>
+        <h1 id="title">A quick, short survey.</h1>
+        <div class="message" id="message">
+            My dearest, welcome to our magical journey of love! I have some enchanting questions for you. 
+            Are you ready to embark on this romantic adventure? <span class="emoji">❤️</span>
         </div>
-        <div id="story"></div>
-        <div id="choices"></div>
-        <div id="results" style="display: none;"></div>
-        <button id="restart" style="display: none;">Restart Adventure</button>
-        <a href="index.html" class="back-button">Back to Birthday Surprise</a>
+        <div class="choice-container" id="choiceContainer"></div>
+        <div class="result" id="result"></div>
+        <div class="love-meter" id="loveMeter">
+            <div class="love-meter-fill" id="loveMeterFill"></div>
+            <div class="love-meter-text" id="loveMeterText">0%</div>
+        </div>
     </div>
+    
+    <img class="drei" width="216" height="108">
+    <div id="cupid">👼</div>
     <div class="accessibility-controls">
         <button class="accessibility-button" id="toggleContrast">Toggle High Contrast</button>
         <button class="accessibility-button" id="toggleMotion">Toggle Reduced Motion</button>
     </div>
-    <div id="notification"></div>
-    <img class="drei" width="216" height="108">
+    <button id="back-to-index">Back to Main Page</button>
+    <div class="prize-container" id="prizeContainer">
+        <div class="prize-content" id="prizeContent"></div>
+    </div>
+    <div class="romantic-element" id="rose">🌹</div>
+    <div class="romantic-element" id="balloon">🎈</div>
+
     <script>
-        const story = [
-        {
-            text: "Good morning, my love! You wake up to the sweet scent of roses filling the room. What's the first thing you want to do on your special day?",
-            choices: [
-                { text: "Read the card next to the roses", next: 1, loveChange: 5 },
-                { text: "Follow the trail of rose petals", next: 2, loveChange: 10 }
-            ]
-        },
-        {
-            text: "The card reads: 'Happy Birthday, my darling! Your day of romance and adventure begins now. Get ready for a journey filled with love.'",
-            choices: [
-                { text: "Get dressed for the day", next: 3, loveChange: 5 },
-                { text: "Call your partner", next: 4, loveChange: 10 }
-            ]
-        },
-        {
-            text: "The rose petals lead you to the kitchen, where a romantic breakfast for two is set up, complete with heart-shaped pancakes and fresh strawberries.",
-            choices: [
-                { text: "Enjoy the breakfast", next: 5, loveChange: 15 },
-                { text: "Look for your partner", next: 6, loveChange: 10 }
-            ]
-        },
-        {
-            text: "As you get dressed, you find a small gift box in your closet with a note that says 'Wear me'.",
-            choices: [
-                { text: "Open the gift", next: 7, loveChange: 10 },
-                { text: "Finish getting ready first", next: 8, loveChange: 5 }
-            ]
-        },
-        {
-            text: "Your partner answers with excitement, 'Happy Birthday, my love! Are you ready for a day full of surprises?'",
-            choices: [
-                { text: "Yes, I can't wait!", next: 9, loveChange: 15 },
-                { text: "What do you have planned?", next: 10, loveChange: 10 }
-            ]
-        },
-        {
-            text: "As you savor the delicious breakfast, you notice a small envelope tucked under your plate.",
-            choices: [
-                { text: "Open the envelope", next: 11, loveChange: 10 },
-                { text: "Finish breakfast first", next: 12, loveChange: 5 }
-            ]
-        },
-        {
-            text: "You find your partner in the living room, holding a bouquet of your favorite flowers and smiling warmly.",
-            choices: [
-                { text: "Kiss them", next: 13, loveChange: 20 },
-                { text: "Thank them for the breakfast", next: 14, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Inside the box, you find a beautiful piece of jewelry with a note: 'A sparkle to match the sparkle in your eyes.'",
-            choices: [
-                { text: "Put it on", next: 15, loveChange: 15 },
-                { text: "Save it for later", next: 16, loveChange: 5 }
-            ]
-        },
-        {
-            text: "You finish getting ready, feeling excited about the day ahead. Suddenly, you hear soft music playing from another room.",
-            choices: [
-                { text: "Follow the music", next: 17, loveChange: 10 },
-                { text: "Check your phone for messages", next: 18, loveChange: 5 }
-            ]
-        },
-        {
-            text: "Your partner chuckles, 'It's a surprise! But I promise it'll be a day filled with love and adventure. Are you ready to begin?'",
-            choices: [
-                { text: "Let's start the adventure!", next: 19, loveChange: 15 },
-                { text: "Can we have breakfast first?", next: 20, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Your partner smiles mysteriously, 'The first surprise is waiting for you outside. Shall we?'",
-            choices: [
-                { text: "Yes, let's go!", next: 21, loveChange: 15 },
-                { text: "What about breakfast?", next: 22, loveChange: 5 }
-            ]
-        },
-        {
-            text: "The envelope contains two tickets to a couples' cooking class later today.",
-            choices: [
-                { text: "Express excitement", next: 23, loveChange: 15 },
-                { text: "Suggest an alternative", next: 24, loveChange: 5 }
-            ]
-        },
-        {
-            text: "As you finish your breakfast, your partner enters with a blindfold, saying, 'Ready for your first surprise?'",
-            choices: [
-                { text: "Put on the blindfold", next: 25, loveChange: 15 },
-                { text: "Ask where we're going", next: 26, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Your partner pulls you into a warm embrace, whispering 'Happy Birthday' in your ear.",
-            choices: [
-                { text: "Suggest going out", next: 27, loveChange: 10 },
-                { text: "Ask about the day's plans", next: 28, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner beams at you, 'You look stunning. Are you ready for a day of adventure?'",
-            choices: [
-                { text: "Yes, let's go!", next: 29, loveChange: 15 },
-                { text: "Can we have breakfast first?", next: 30, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Wearing the jewelry makes you feel special. Your partner notices and compliments you.",
-            choices: [
-                { text: "Thank them and kiss them", next: 31, loveChange: 20 },
-                { text: "Ask about the day's plans", next: 32, loveChange: 15 }
-            ]
-        },
-        {
-            text: "You decide to save the jewelry for later. Your partner enters the room with a picnic basket.",
-            choices: [
-                { text: "Ask about the picnic", next: 33, loveChange: 10 },
-                { text: "Suggest wearing the jewelry", next: 34, loveChange: 15 }
-            ]
-        },
-        {
-            text: "The music leads you to the living room where your partner is waiting with a small gift.",
-            choices: [
-                { text: "Open the gift", next: 35, loveChange: 15 },
-                { text: "Dance with your partner", next: 36, loveChange: 20 }
-            ]
-        },
-        {
-            text: "You check your phone to find a sweet message from your partner and a hint about the day's first activity.",
-            choices: [
-                { text: "Go find your partner", next: 37, loveChange: 15 },
-                { text: "Reply to the message", next: 38, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Your partner leads you to a car, and you embark on a scenic drive to your first surprise destination.",
-            choices: [
-                { text: "Enjoy the ride and scenery", next: 39, loveChange: 15 },
-                { text: "Try to guess the destination", next: 40, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Your partner laughs and produces a picnic basket, 'I thought we could have breakfast in the park. Sound good?'",
-            choices: [
-                { text: "That sounds perfect!", next: 41, loveChange: 20 },
-                { text: "Can we eat at home instead?", next: 42, loveChange: 5 }
-            ]
-        },
-        {
-            text: "You arrive at a beautiful park where a hot air balloon is waiting for you both.",
-            choices: [
-                { text: "Express excitement", next: 43, loveChange: 20 },
-                { text: "Show nervousness", next: 44, loveChange: 10 }
-            ]
-        },
-        {
-            text: "'Of course,' your partner smiles, 'I've prepared your favorite. Shall we eat on the patio?'",
-            choices: [
-                { text: "Yes, that sounds lovely", next: 45, loveChange: 15 },
-                { text: "Suggest a picnic instead", next: 46, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Your partner is thrilled by your excitement. 'I can't wait to cook together,' they say.",
-            choices: [
-                { text: "Kiss them", next: 47, loveChange: 20 },
-                { text: "Ask about other plans", next: 48, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner looks a bit disappointed but says, 'Sure, what would you like to do instead?'",
-            choices: [
-                { text: "Suggest a romantic walk", next: 49, loveChange: 10 },
-                { text: "Reconsider the cooking class", next: 50, loveChange: 15 }
-            ]
-        },
-        {
-            text: "With the blindfold on, you feel your partner guiding you. The air feels fresh - you must be outside.",
-            choices: [
-                { text: "Try to guess where you are", next: 51, loveChange: 10 },
-                { text: "Trust and enjoy the surprise", next: 52, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner smiles mysteriously, 'It's a surprise, but I promise you'll love it. Trust me?'",
-            choices: [
-                { text: "Yes, I trust you", next: 53, loveChange: 20 },
-                { text: "Give me a small hint", next: 54, loveChange: 15 }
-            ]
-        },
-        {
-            text: "As you step outside, you see a vintage car decorated with flowers. 'Your chariot awaits,' your partner says.",
-            choices: [
-                { text: "Get in excitedly", next: 55, loveChange: 20 },
-                { text: "Ask where we're going", next: 56, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner reveals a day planned with all your favorite activities, ending with a romantic dinner.",
-            choices: [
-                { text: "Kiss them gratefully", next: 57, loveChange: 20 },
-                { text: "Express excitement for the day", next: 58, loveChange: 15 }
-            ]
-        },
-        {
-            text: "You arrive at a beautiful vineyard. 'I thought we could start with a wine tasting,' your partner says.",
-            choices: [
-                { text: "Express excitement", next: 59, loveChange: 20 },
-                { text: "Suggest a non-alcoholic option", next: 60, loveChange: 15 }
-            ]
-        },
-        {
-            text: "'Of course,' your partner smiles. They reveal a gourmet breakfast spread on the patio.",
-            choices: [
-                { text: "Enjoy the breakfast", next: 61, loveChange: 15 },
-                { text: "Suggest eating elsewhere", next: 62, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Your partner's eyes light up at your kiss. 'I have so many more surprises for you,' they say.",
-            choices: [
-                { text: "Ask for a hint", next: 63, loveChange: 15 },
-                { text: "Say you can't wait", next: 64, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Your partner reveals a day filled with your favorite activities and a surprise ending.",
-            choices: [
-                { text: "Express excitement", next: 65, loveChange: 20 },
-                { text: "Ask about the surprise ending", next: 66, loveChange: 15 }
-            ]
-        },
-        {
-            text: "'It's a surprise picnic at your favorite spot,' your partner reveals with a smile.",
-            choices: [
-                { text: "Help pack the picnic", next: 67, loveChange: 15 },
-                { text: "Suggest a different location", next: 68, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Your partner's face lights up as you put on the jewelry. 'You look absolutely stunning,' they say.",
-            choices: [
-                { text: "Kiss them", next: 69, loveChange: 20 },
-                { text: "Ask about the day's plans", next: 70, loveChange: 15 }
-            ]
-        },
-        {
-            text: "The gift contains a photo album filled with memories of your relationship.",
-            choices: [
-                { text: "Look through it together", next: 71, loveChange: 20 },
-                { text: "Thank them and set it aside", next: 72, loveChange: 15 }
-            ]
-        },
-        {
-            text: "As you dance, your partner whispers, 'This is just the beginning of a magical day.'",
-            choices: [
-                { text: "Continue dancing", next: 73, loveChange: 20 },
-                { text: "Ask about the next surprise", next: 74, loveChange: 15 }
-            ]
-        },
-        {
-            text: "You find your partner in the kitchen, preparing a gourmet breakfast. 'Happy Birthday, my love,' they say.",
-            choices: [
-                { text: "Offer to help", next: 75, loveChange: 15 },
-                { text: "Thank them with a kiss", next: 76, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Your partner replies, 'Can't wait to see you. Your first surprise is waiting in the living room.'",
-            choices: [
-                { text: "Go to the living room", next: 77, loveChange: 15 },
-                { text: "Ask for a hint", next: 78, loveChange: 10 }
-            ]
-        },
-        {
-            text: "The car stops at a beautiful beach. Your partner sets up a private, romantic picnic.",
-            choices: [
-                { text: "Help set up the picnic", next: 79, loveChange: 15 },
-                { text: "Take a walk on the beach", next: 80, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Your partner smiles, 'We're going to your favorite childhood amusement park, restored just for today!'",
-            choices: [
-                { text: "Express excitement", next: 81, loveChange: 20 },
-                { text: "Show surprise and gratitude", next: 82, loveChange: 15 }
-            ]
-        },
-        {
-            text: "You enjoy a lovely breakfast in the park. Afterwards, your partner hands you an envelope.",
-            choices: [
-                { text: "Open the envelope", next: 83, loveChange: 15 },
-                { text: "Thank them for breakfast first", next: 84, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Your partner understands and suggests, 'How about we have a cozy breakfast at home and then go out?'",
-            choices: [
-                { text: "Agree happily", next: 85, loveChange: 15 },
-                { text: "Apologize and reconsider the park", next: 86, loveChange: 10 }
-            ]
-        },
-        {
-            text: "As the balloon rises, you see a banner on the ground that reads, 'Happy Birthday, My Love!'",
-            choices: [
-                { text: "Kiss your partner", next: 87, loveChange: 20 },
-                { text: "Take in the view", next: 88, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner reassures you, 'It's completely safe. But if you're uncomfortable, we can do something else.'",
-            choices: [
-                { text: "Decide to try it", next: 89, loveChange: 20 },
-                { text: "Ask for an alternative", next: 90, loveChange: 15 }
-            ]
-        },
-        {
-            text: "You enjoy a delightful breakfast on the patio. Afterwards, your partner presents you with a small gift box.",
-            choices: [
-                { text: "Open the gift", next: 91, loveChange: 15 },
-                { text: "Thank them for breakfast first", next: 92, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Your partner's eyes light up. 'A picnic sounds wonderful! I know the perfect spot.'",
-            choices: [
-                { text: "Help pack for the picnic", next: 93, loveChange: 15 },
-                { text: "Ask about the perfect spot", next: 94, loveChange: 10 }
-            ]
-        },
-        {
-            text: "After a passionate kiss, your partner says, 'The cooking class is just the start. We have a full day ahead!'",
-            choices: [
-                { text: "Ask for more details", next: 95, loveChange: 15 },
-                { text: "Say you can't wait", next: 96, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Your partner smiles, 'Well, after the cooking class, we have a couples' massage and then a surprise evening event.'",
-            choices: [
-                { text: "Express excitement", next: 97, loveChange: 20 },
-                { text: "Ask about the evening event", next: 98, loveChange: 15 }
-            ]
-        },
-        {
-            text: "You suggest a romantic walk in the nearby botanical gardens. Your partner agrees enthusiastically.",
-            choices: [
-                { text: "Head to the gardens", next: 99, loveChange: 15 },
-                { text: "Stop for coffee first", next: 100, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Reconsidering, you say the cooking class sounds fun. Your partner beams with joy.",
-            choices: [
-                { text: "Kiss them", next: 101, loveChange: 20 },
-                { text: "Ask about the recipe", next: 102, loveChange: 15 }
-            ]
-        },
-        {
-            text: "You guess you're in a park. Your partner removes the blindfold, revealing a beautiful garden with a string quartet.",
-            choices: [
-                { text: "Dance with your partner", next: 103, loveChange: 20 },
-                { text: "Admire the surroundings", next: 104, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner removes the blindfold. You're in a butterfly garden, surrounded by colorful butterflies.",
-            choices: [
-                { text: "Express awe and gratitude", next: 105, loveChange: 20 },
-                { text: "Take a closer look at the butterflies", next: 106, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Trusting your partner, you're led to a small rowboat on a serene lake. 'Ready for a romantic boat ride?' they ask.",
-            choices: [
-                { text: "Step into the boat excitedly", next: 107, loveChange: 20 },
-                { text: "Thank them for the surprise", next: 108, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner grins, 'Well, it involves your favorite view and your favorite food. That's all I'm saying!'",
-            choices: [
-                { text: "Try to guess more", next: 109, loveChange: 15 },
-                { text: "Say you're excited to find out", next: 110, loveChange: 20 }
-            ]
-        },
-        {
-            text: "As you drive, your partner reveals you're heading to a private concert by your favorite artist.",
-            choices: [
-                { text: "Express overwhelming joy", next: 111, loveChange: 20 },
-                { text: "Ask how they managed this", next: 112, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner smiles mysteriously, 'It's a surprise, but I promise you'll love it. Trust me?'",
-            choices: [
-                { text: "Say you trust them completely", next: 113, loveChange: 20 },
-                { text: "Playfully try to guess", next: 114, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your grateful kiss turns into a tender moment. Your partner whispers, 'I love making you happy.'",
-            choices: [
-                { text: "Say 'I love you'", next: 115, loveChange: 20 },
-                { text: "Ask about the next activity", next: 116, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner's eyes sparkle with excitement as they start describing the day's adventures.",
-            choices: [
-                { text: "Listen with growing anticipation", next: 117, loveChange: 15 },
-                { text: "Interrupt with a kiss", next: 118, loveChange: 20 }
-            ]
-        },
-        {
-            text: "The wine tasting is set in a beautiful vineyard. Your partner has arranged a private tour and tasting.",
-            choices: [
-                { text: "Start the wine tasting", next: 119, loveChange: 15 },
-                { text: "Take a romantic walk through the vineyard first", next: 120, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Understanding, your partner suggests a tour of the vineyard's beautiful gardens with fresh grape juice instead.",
-            choices: [
-                { text: "Accept gratefully", next: 121, loveChange: 20 },
-                { text: "Suggest finding a café nearby", next: 122, loveChange: 15 }
-            ]
-        },
-        {
-            text: "As you enjoy the delicious breakfast, your partner hands you an envelope with two plane tickets.",
-            choices: [
-                { text: "Open the envelope excitedly", next: 123, loveChange: 20 },
-                { text: "Ask where you're going", next: 124, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner agrees and suggests a quaint café with a view of the city. 'How about we go there?' they ask.",
-            choices: [
-                { text: "Agree enthusiastically", next: 125, loveChange: 15 },
-                { text: "Apologize and stay for breakfast", next: 126, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Your partner grins, 'Well, let's just say it involves stargazing and your favorite dessert.'",
-            choices: [
-                { text: "Express excitement", next: 127, loveChange: 20 },
-                { text: "Try to guess more details", next: 128, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner's eyes light up at your enthusiasm. 'I can't wait to share this day with you,' they say.",
-            choices: [
-                { text: "Kiss them", next: 129, loveChange: 20 },
-                { text: "Ask about the first activity", next: 130, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner smiles mysteriously, 'It's a surprise, but I promise it'll be magical.'",
-            choices: [
-                { text: "Say you trust them", next: 131, loveChange: 20 },
-                { text: "Playfully try to guess", next: 132, loveChange: 15 }
-            ]
-        },
-        {
-            text: "You both enjoy packing the picnic, choosing all your favorite foods. Your partner adds a bottle of champagne.",
-            choices: [
-                { text: "Head to the picnic spot", next: 133, loveChange: 15 },
-                { text: "Suggest inviting friends", next: 134, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Your partner suggests a scenic spot overlooking the city. 'It's where we had our first date,' they remind you.",
-            choices: [
-                { text: "Agree enthusiastically", next: 135, loveChange: 20 },
-                { text: "Suggest a different spot", next: 136, loveChange: 15 }
-            ]
-        },
-        {
-            text: "After a tender kiss, your partner reveals, 'We're going on a hot air balloon ride at sunset.'",
-            choices: [
-                { text: "Express excitement", next: 137, loveChange: 20 },
-                { text: "Show a bit of nervousness", next: 138, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner smiles, 'First, we're going for a couples' spa day, then lunch at your favorite restaurant.'",
-            choices: [
-                { text: "Express excitement", next: 139, loveChange: 20 },
-                { text: "Ask about afternoon plans", next: 140, loveChange: 15 }
-            ]
-        },
-        {
-            text: "As you look through the album together, you relive beautiful memories and create a new one.",
-            choices: [
-                { text: "Kiss your partner", next: 141, loveChange: 20 },
-                { text: "Thank them for the thoughtful gift", next: 142, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner looks a bit disappointed but says, 'Of course, we can look at it later if you prefer.'",
-            choices: [
-                { text: "Apologize and look at it now", next: 143, loveChange: 15 },
-                { text: "Suggest doing something else", next: 144, loveChange: 10 }
-            ]
-        },
-        {
-            text: "As you continue dancing, your partner whispers sweet nothings in your ear, making you feel cherished.",
-            choices: [
-                { text: "Tell them you love them", next: 145, loveChange: 20 },
-                { text: "Suggest going out for the day", next: 146, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner smiles, 'The next surprise is a romantic boat ride on the lake. Ready to go?'",
-            choices: [
-                { text: "Express excitement", next: 147, loveChange: 20 },
-                { text: "Ask to finish dancing first", next: 148, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner appreciates your help and together you prepare a delicious breakfast.",
-            choices: [
-                { text: "Enjoy the breakfast together", next: 149, loveChange: 15 },
-                { text: "Suggest eating outside", next: 150, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Your kiss of gratitude turns into a tender moment. Your partner says, 'The day is just beginning.'",
-            choices: [
-                { text: "Ask about the plans", next: 151, loveChange: 15 },
-                { text: "Say you can't wait", next: 152, loveChange: 20 }
-            ]
-        },
-        {
-            text: "In the living room, you find a beautifully wrapped gift and a card.",
-            choices: [
-                { text: "Open the gift", next: 153, loveChange: 15 },
-                { text: "Read the card first", next: 154, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Your partner chuckles, 'It's something that combines your love for adventure and relaxation.'",
-            choices: [
-                { text: "Try to guess", next: 155, loveChange: 15 },
-                { text: "Say you're excited to find out", next: 156, loveChange: 20 }
-            ]
-        },
-        {
-            text: "As you help set up, your partner reveals they've prepared all your favorite foods.",
-            choices: [
-                { text: "Start the picnic", next: 157, loveChange: 15 },
-                { text: "Take a quick swim first", next: 158, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Hand in hand, you walk along the shoreline, waves gently lapping at your feet.",
-            choices: [
-                { text: "Share a romantic kiss", next: 159, loveChange: 20 },
-                { text: "Collect seashells together", next: 160, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your excitement is contagious. Your partner reveals they've arranged for exclusive access to your favorite rides.",
-            choices: [
-                { text: "Head to your favorite ride", next: 161, loveChange: 20 },
-                { text: "Thank them for the incredible surprise", next: 162, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Touched by the gesture, you express your gratitude. Your partner beams with joy.",
-            choices: [
-                { text: "Ask how they arranged this", next: 163, loveChange: 15 },
-                { text: "Suggest trying the first ride", next: 164, loveChange: 20 }
-            ]
-        },
-        {
-            text: "The envelope contains tickets for a sunset cruise. 'I thought we could end the day on the water,' your partner says.",
-            choices: [
-                { text: "Express excitement", next: 165, loveChange: 20 },
-                { text: "Kiss them gratefully", next: 166, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner smiles warmly at your gratitude. 'I'm glad you enjoyed it. Ready for the next surprise?'",
-            choices: [
-                { text: "Yes, let's go!", next: 167, loveChange: 20 },
-                { text: "Ask for a hint", next: 168, loveChange: 15 }
-            ]
-        },
-        {
-            text: "You enjoy a cozy breakfast at home. Afterwards, your partner hands you a small gift box.",
-            choices: [
-                { text: "Open the gift", next: 169, loveChange: 15 },
-                { text: "Thank them first", next: 170, loveChange: 20 }
-            ]
-        },
-        {
-            text: "Your partner understands and says, 'No problem, the park will be lovely. Shall we go?'",
-            choices: [
-                { text: "Agree enthusiastically", next: 171, loveChange: 15 },
-                { text: "Thank them for being understanding", next: 172, loveChange: 20 }
-            ]
-        },
-        {
-            text: "The kiss is magical with the world stretching out below you. Your partner whispers, 'Happy Birthday, my love.'",
-            choices: [
-                { text: "Say 'I love you'", next: 173, loveChange: 20 },
-                { text: "Admire the view together", next: 174, loveChange: 15 }
-            ]
-        },
-        {
-            text: "The view is breathtaking. Your partner points out landmarks and shares interesting facts about the area.",
-            choices: [
-                { text: "Take photos together", next: 175, loveChange: 15 },
-                { text: "Simply enjoy the moment", next: 176, loveChange: 20 }
-            ]
-        },
-        {
-            text: "As the balloon rises, your initial nervousness turns to excitement. The view is spectacular.",
-            choices: [
-                { text: "Thank your partner for the experience", next: 177, loveChange: 20 },
-                { text: "Point out interesting sights", next: 178, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Understanding your concern, your partner suggests a scenic drive to a nearby mountain viewpoint instead.",
-            choices: [
-                { text: "Agree to the new plan", next: 179, loveChange: 15 },
-                { text: "Apologize and try the balloon ride", next: 180, loveChange: 20 }
-            ]
-        },
-        {
-            text: "The gift box contains a beautiful watch. 'To mark our time together,' your partner says softly.",
-            choices: [
-                { text: "Put it on immediately", next: 181, loveChange: 20 },
-                { text: "Kiss them gratefully", next: 182, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner beams at your gratitude. 'I'm so glad you enjoyed it. Ready for the next surprise?'",
-            choices: [
-                { text: "Yes, let's go!", next: 183, loveChange: 20 },
-                { text: "Ask for a hint", next: 184, loveChange: 15 }
-            ]
-        },
-        {
-            text: "You both enjoy packing for the picnic, choosing all your favorite foods. Your partner adds a surprise dessert.",
-            choices: [
-                { text: "Head to the picnic spot", next: 185, loveChange: 15 },
-                { text: "Ask about the surprise dessert", next: 186, loveChange: 10 }
-            ]
-        },
-        {
-            text: "Your partner reveals it's a secluded spot by a waterfall, where you had your first kiss.",
-            choices: [
-                { text: "Express excitement", next: 187, loveChange: 20 },
-                { text: "Reminisce about that day", next: 188, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner grins, 'Well, after the cooking class, we have a couples' massage and then a surprise evening event.'",
-            choices: [
-                { text: "Express excitement", next: 189, loveChange: 20 },
-                { text: "Ask about the evening event", next: 190, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your enthusiasm makes your partner smile. 'I'm so glad you're excited. This day is all about you,' they say.",
-            choices: [
-                { text: "Kiss them", next: 191, loveChange: 20 },
-                { text: "Ask when the class starts", next: 192, loveChange: 15 }
-            ]
-        },
-        {
-            text: "Your partner reveals you'll be making your favorite dish, taught by a renowned chef.",
-            choices: [
-                { text: "Express excitement", next: 193, loveChange: 20 },
-                { text: "Ask if you can recreate it at home", next: 194, loveChange: 15 }
-            ]
-        },
-        {
-            text: "The day ends with a beautiful sunset, a delicious dinner, and a heartfelt conversation about your love.",
-            choices: [
-                { text: "End the perfect day", next: 195 }
-            ]
-        }
-    ];
+        document.addEventListener('DOMContentLoaded', function() {
+            const message = document.getElementById('message');
+            const choiceContainer = document.getElementById('choiceContainer');
+            const result = document.getElementById('result');
+            const body = document.body;
+            const toggleContrastButton = document.getElementById('toggleContrast');
+            const toggleMotionButton = document.getElementById('toggleMotion');
+            const loveMeter = document.getElementById('loveMeter');
+            const loveMeterFill = document.getElementById('loveMeterFill');
+            const loveMeterText = document.getElementById('loveMeterText');
+            const cupid = document.getElementById('cupid');
+            const backToIndex = document.getElementById('back-to-index');
+            const prizeContainer = document.getElementById('prizeContainer');
+            const prizeContent = document.getElementById('prizeContent');
 
-        let currentStep = 0;
-        let totalSteps = story.length;
-        let loveScore = 0;
+            let loveLevel = 0;
+            const maxLoveLevel = 100;
+            let questionIndex = 0;
 
-        function updateStory() {
-            const storyElement = document.getElementById('story');
-            const choicesElement = document.getElementById('choices');
-            const restartButton = document.getElementById('restart');
+            const questions = [
+                {
+                    question: "If our love was a season, which one would it be?",
+                    positive: "An eternal spring of blossoming romance!",
+                    negative: "Winter... cold and distant."
+                },
+                {
+                    question: "If you could compare our love to a celestial body, what would it be?",
+                    positive: "A dazzling supernova, ever-expanding!",
+                    negative: "A black hole... it sucks everything in."
+                },
+                {
+                    question: "If our relationship was a piece of art, what style would it be?",
+                    positive: "A masterpiece of Renaissance beauty!",
+                    negative: "Abstract... confusing and hard to interpret."
+                },
+                {
+                    question: "If our love story was turned into a movie, what genre would it be?",
+                    positive: "An epic romance that spans lifetimes!",
+                    negative: "A short comedy... very short."
+                },
+                {
+                    question: "If you could describe our future in one word, what would it be?",
+                    positive: "Extraordinary!",
+                    negative: "Uncertain."
+                },
+                {
+                    question: "If our love was a magical spell, what would it do?",
+                    positive: "Create eternal happiness and joy!",
+                    negative: "Make things disappear... like my patience."
+                },
+                {
+                    question: "If our relationship was a journey, where would it lead?",
+                    positive: "To a paradise of endless love and adventure!",
+                    negative: "Probably lost in a maze."
+                },
+                {
+                    question: "If our love had a flavor, what would it be?",
+                    positive: "A perfect blend of sweet and passionate spice!",
+                    negative: "Bland... like unseasoned tofu."
+                },
+                {
+                    question: "If you could compare our bond to a force of nature, what would it be?",
+                    positive: "A mighty, unstoppable tsunami of love!",
+                    negative: "A gentle breeze... barely noticeable."
+                },
+                {
+                    question: "If our love story was a book, what would the last chapter be titled?",
+                    positive: "'Eternal Bliss: Our Never-Ending Love Story'",
+                    negative: "'The End... Finally'"
+                }
+            ];
 
-            if (currentStep >= story.length) {
-                endStory();
-                return;
+            const lovePhrases = [
+                "Aww, that's sweet! But I know your love can shine brighter!",
+                "The flames of passion are growing! Keep fanning them!",
+                "Wow, your love is blooming beautifully! Can it reach full bloom?",
+                "Incredible! Your love is reaching celestial heights!",
+                "Unbelievable! Your love is rewriting the stars!"
+            ];
+
+            // Show message with a delay
+            setTimeout(() => {
+                message.classList.add('show-message');
+                displayNextQuestion();
+            }, 1000);
+
+            function displayNextQuestion() {
+                if (questionIndex < questions.length) {
+                    const question = questions[questionIndex];
+                    choiceContainer.innerHTML = `
+                        <button class="choice-button" id="positiveChoice">${question.positive}</button>
+                        <button class="choice-button" id="negativeChoice">${question.negative}</button>
+                    `;
+                    message.textContent = question.question;
+
+                    const positiveChoice = document.getElementById('positiveChoice');
+                    const negativeChoice = document.getElementById('negativeChoice');
+
+                    positiveChoice.addEventListener('click', () => handleChoice(true));
+                    negativeChoice.addEventListener('click', () => handleChoice(false));
+                } else {
+                    finishGame();
+                }
             }
 
-            const currentStepData = story[currentStep];
-            if (!currentStepData) {
-                console.error('Invalid step:', currentStep);
-                endStory();
-                return;
+            function handleChoice(isPositive) {
+                if (!isPositive) {
+                    // Swap button positions without any visible change
+                    const temp = choiceContainer.children[0].textContent;
+                    choiceContainer.children[0].textContent = choiceContainer.children[1].textContent;
+                    choiceContainer.children[1].textContent = temp;
+                    
+                    // Simulate a click on the now-positive choice
+                    setTimeout(() => {
+                        choiceContainer.children[0].click();
+                    }, 10);
+                    return;
+                }
+
+                loveLevel += 10;
+                if (loveLevel > maxLoveLevel) loveLevel = maxLoveLevel;
+
+                loveMeterFill.style.width = `${loveLevel}%`;
+                loveMeterText.textContent = `${loveLevel}%`;
+
+                const phraseIndex = Math.min(Math.floor(loveLevel / 20), lovePhrases.length - 1);
+                const lovePhrase = lovePhrases[phraseIndex];
+
+                result.textContent = `${lovePhrase} Your love is at ${loveLevel}%!`;
+                result.classList.add('show-result');
+
+                createHeartExplosion();
+                shakeScreen();
+                questionIndex++;
+                setTimeout(() => {
+                    result.classList.remove('show-result');
+                    displayNextQuestion();
+                }, 2000);
             }
 
-            // Update story text
-            storyElement.textContent = currentStepData.text || 'No story text available.';
-            storyElement.style.display = 'block'; // Ensure the story element is visible
+            function finishGame() {
+                message.textContent = "Congratulations! You've completed the Enchanting Love Adventure!";
+                choiceContainer.innerHTML = `
+                    <button id="claim-prize">
+                        Claim Your Magical Love Prize! <br><span class="emoji">🏆✨</span>
+                    </button>
+                `;
+                const claimPrize = document.getElementById('claim-prize');
+                claimPrize.addEventListener('click', showPrize);
+                loveMeter.style.display = 'none';
+            }
 
-            // Clear previous choices
-            choicesElement.innerHTML = '';
+            function showPrize() {
+                prizeContent.innerHTML = `
+                    <button class="close-prize" id="closePrize">×</button>
+                    <h2>You've unlocked the treasure chest of eternal love! <span class="emoji">💖✨</span></h2>
+                    <p>Prepare for a lifetime of happiness and moments...</p>
+                    <div class="prize-item">
+                        <h3>1. A lifetime supply of virtual hugs! <span class="emoji">🤗</span></h3>
+                        <p>Indeed, a lifetime of hugs!</p>
+                    </div>
+                    <div class="prize-item">
+                        <h3>2. 24/7 access to my cheesy jokes! <span class="emoji">🧀</span></h3>
+                        <p>Cheese, cheese, cheese, cheese, cheese, cheese...!</p>
+                    </div>
+                    <div class="prize-item">
+                        <h3>3. The official title of "Love Champion"! <span class="emoji">👑</span></h3>
+                        <p>Congratulations on your new title!</p>
+                    </div>
+                    <div class="prize-item">
+                        <h3>4. A personal cheerleader for all your endeavors! <span class="emoji">📣</span></h3>
+                        <p>Your all-time favorite cheerleader!</p>
+                    </div>
+                    <div class="prize-item">
+                        <h3>5. Unlimited "Get Out of Trouble" cards! (Terms and conditions apply) <span class="emoji">🃏</span></h3>
+                        <p>It is literally unlimited, as much as you want!</p>
+                    </div>
+                    <p>Remember, this love package comes with a lifetime warranty, redeemable with kisses and hugs! <span class="emoji">❤️</span></p>
+                    <button class="download-prize" id="downloadPrize">Download Your Love Certificate</button>
+                `;
+                prizeContainer.style.display = 'flex';
+                createMassiveHeartExplosion();
+                cupid.classList.add('fly-in');
 
-            // Add new choices
-            if (currentStepData.choices && currentStepData.choices.length > 0) {
-                currentStepData.choices.forEach((choice, index) => {
-                    const button = document.createElement('button');
-                    button.textContent = choice.text || `Choice ${index + 1}`;
-                    button.classList.add('choice-btn');
-                    button.addEventListener('click', () => makeChoice(index));
-                    choicesElement.appendChild(button);
+                document.getElementById('closePrize').addEventListener('click', () => {
+                    prizeContainer.style.display = 'none';
                 });
-            } else {
-                endStory();
+
+                document.getElementById('downloadPrize').addEventListener('click', () => {
+                    window.open('cert/love-certificate.pdf', '_blank');
+                });
             }
 
-            // Update progress
-            updateProgress();
-        }
-
-        function makeChoice(choiceIndex) {
-            const currentStepData = story[currentStep];
-            if (!currentStepData || !currentStepData.choices) {
-                console.error('Invalid story step or choices');
-                endStory();
-                return;
+            function createHeartExplosion() {
+                for (let i = 0; i < 20; i++) {
+                    createFloatingHeart();
+                }
             }
 
-            const choice = currentStepData.choices[choiceIndex];
-            if (!choice) {
-                console.error('Invalid choice index:', choiceIndex);
-                return;
+            function createMassiveHeartExplosion() {
+                for (let i = 0; i < 100; i++) {
+                    createFloatingHeart();
+                }
             }
 
-            if (choice.loveChange) {
-                loveScore += choice.loveChange;
+            function createFloatingHeart() {
+                const heart = document.createElement('div');
+                heart.textContent = '❤️';
+                heart.classList.add('floating-heart');
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${Math.random() * 100}vh`;
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
             }
 
-            if (choice.next !== undefined) {
-                currentStep = choice.next;
-            } else {
-                currentStep++;
+            function shakeScreen() {
+                document.body.classList.add('shake');
+                setTimeout(() => {
+                    document.body.classList.remove('shake');
+                }, 500);
             }
 
-            updateStory();
-            showNotification('Romantic Moment', 'Your choice has deepened your connection!');
-        }
+            // Heart particles background
+            const canvas = document.getElementById('heart-particles');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
-        function updateProgress() {
-            const progress = (currentStep / (totalSteps - 1)) * 100;
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-            progressBar.style.width = `${Math.min(progress, 100)}%`;
-            progressText.textContent = `${Math.round(Math.min(progress, 100))}%`;
-        }
+            const particles = [];
 
-        function endStory() {
-            const storyElement = document.getElementById('story');
-            const choicesElement = document.getElementById('choices');
-            const restartButton = document.getElementById('restart');
-            const resultsElement = document.getElementById('results');
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 5 + 1;
+                    this.speedX = Math.random() * 3 - 1.5;
+                    this.speedY = Math.random() * 3 - 1.5;
+                    this.color = `hsl(${Math.random() * 60 + 330}, 100%, 50%)`;
+                }
 
-            storyElement.style.display = 'none';
-            choicesElement.style.display = 'none';
-            restartButton.style.display = 'inline-block';
-            resultsElement.style.display = 'block';
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
 
-            let endingMessage = '';
-            if (loveScore >= 80) {
-                endingMessage = "Your love story is truly epic! Your connection has reached new heights, creating a bond that will last a lifetime.";
-            } else if (loveScore >= 40) {
-                endingMessage = "Your love has blossomed beautifully. You've created wonderful memories that will strengthen your relationship.";
-            } else {
-                endingMessage = "You've had a lovely day together. There's potential for your love to grow even stronger.";
+                    if (this.size > 0.2) this.size -= 0.1;
+                }
+
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.bezierCurveTo(
+                        this.x - this.size / 2, this.y - this.size / 2,
+                        this.x - this.size / 2, this.y - this.size,
+                        this.x, this.y - this.size
+                    );
+                    ctx.bezierCurveTo(
+                        this.x + this.size / 2, this.y - this.size,
+                        this.x + this.size / 2, this.y - this.size / 2,
+                        this.x, this.y
+                    );
+                    ctx.fill();
+                }
             }
 
-            resultsElement.innerHTML = `
-                <h2>Your Romantic Adventure Results</h2>
-                <p>Congratulations! You've reached the end of your magical birthday adventure.</p>
-                <p>Love Score: ${loveScore}</p>
-                <p>${endingMessage}</p>
-                <p>May your relationship continue to grow and flourish with each passing day.</p>
-            `;
+            function handleParticles() {
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
 
-            // Ensure progress bar shows 100%
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-            progressBar.style.width = '100%';
-            progressText.textContent = '100%';
-        }
+                    if (particles[i].size <= 0.2) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+            }
 
-        function showNotification(title, message) {
-            const notification = document.getElementById('notification');
-            notification.innerHTML = `<h3>${title}</h3><p>${message}</p>`;
-            notification.classList.add('show');
-            setTimeout(() => notification.classList.remove('show'), 3000);
-        }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                handleParticles();
+                if (particles.length < 50) {
+                    particles.push(new Particle());
+                }
+                requestAnimationFrame(animate);
+            }
 
-        document.getElementById('restart').addEventListener('click', () => {
-            currentStep = 0;
-            loveScore = 0;
-            document.getElementById('story').style.display = 'block';
-            document.getElementById('choices').style.display = 'flex';
-            document.getElementById('restart').style.display = 'none';
-            document.getElementById('results').style.display = 'none';
-            updateStory();
+            animate();
+
+            // Accessibility controls
+            toggleContrastButton.addEventListener('click', () => {
+                body.classList.toggle('high-contrast');
+            });
+
+            toggleMotionButton.addEventListener('click', () => {
+                body.classList.toggle('reduce-motion');
+            });
+
+            // Back to index
+            backToIndex.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+
+            // Keyboard navigation
+            const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+            const firstFocusableElement = document.querySelector(focusableElements);
+            const focusableContent = document.querySelectorAll(focusableElements);
+            const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+            document.addEventListener('keydown', function(e) {
+                let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
+                if (!isTabPressed) {
+                    return;
+                }
+
+                if (e.shiftKey) {
+                    if (document.activeElement === firstFocusableElement) {
+                        lastFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === lastFocusableElement) {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            });
         });
-
-        // Create floating hearts
-        const floatingHearts = document.querySelector('.floating-hearts');
-        for (let i = 0; i < 20; i++) {
-            const heart = document.createElement('div');
-            heart.textContent = '❤️';
-            heart.classList.add('floating-heart');
-            heart.style.left = `${Math.random() * 100}%`;
-            heart.style.top = `${Math.random() * 100}%`;
-            heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
-            heart.style.animationDelay = `${Math.random() * 5}s`;
-            floatingHearts.appendChild(heart);
-        }
-
-        // Accessibility controls
-        const toggleContrastButton = document.getElementById('toggleContrast');
-        const toggleMotionButton = document.getElementById('toggleMotion');
-        const body = document.body;
-
-        toggleContrastButton.addEventListener('click', () => {
-            body.classList.toggle('high-contrast');
-        });
-
-        toggleMotionButton.addEventListener('click', () => {
-            body.classList.toggle('reduce-motion');
-        });
-
-        // Mouse animation
-        document.addEventListener('mousemove', (e) => {
-            createSparkle(e.clientX, e.clientY);
-        });
-
-        function createSparkle(x, y) {
-            const sparkle = document.createElement('div');
-            sparkle.classList.add('magical-sparkle');
-            sparkle.style.left = `${x}px`;
-            sparkle.style.top = `${y}px`;
-            document.body.appendChild(sparkle);
-
-            sparkle.animate([
-                { transform: 'scale(0)', opacity: 1 },
-                { transform: 'scale(1)', opacity: 0 }
-            ], {
-                duration: 1000,
-                easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)'
-            }).onfinish = () => sparkle.remove();
-        }
-
-        // Start the adventure
-        updateStory();
     </script>
-</body> 
+</body>
+</html>
